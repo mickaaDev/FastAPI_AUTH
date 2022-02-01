@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  fast:
+    container_name: "Fast_auth"
+    build: .
+    ports:
+      - 8080:8000
+    volumes:
+      - ./app:/usr/src/app
