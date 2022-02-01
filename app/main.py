@@ -9,12 +9,6 @@ apps = FastAPI()
 _services.create_database()
 
 
-
-@apps.get("/")
-async def read_main():
-    return {"msg": "Hello World"}
-
-
 @apps.post("/api/users")
 async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
     db_user = await _services.get_user_by_email(email=user.email, db=db)
@@ -54,32 +48,3 @@ async def create_image(
         db: _orm.Session = _fastapi.Depends(_services.get_db)
 ):
     return await _services.create_image(user=user, db=db, image=image)
-
-
-
-
-
-
-
-from fastapi import FastAPI, Header, HTTPException
-from pydantic import BaseModel
-from typing import Optional
-class Item(BaseModel):
-    id: str
-    title: str
-    description: Optional[str] = None
-fake_secret_token = "coneofsilence"
-
-fake_db = {
-    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
-    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
-}
-
-@apps.post("/items/", response_model=Item)
-async def create_item(item: Item, x_token: str = Header(...)):
-    if x_token != fake_secret_token:
-        raise HTTPException(status_code=400, detail="Invalid X-Token header")
-    if item.id in fake_db:
-        raise HTTPException(status_code=400, detail="Item already exists")
-    fake_db[item.id] = item
-    return item
