@@ -4,6 +4,8 @@ import fastapi.security as _security
 import sqlalchemy.orm as _orm
 import services as _services
 import schemas as _schemas
+import pagan
+
 
 apps = FastAPI()
 _services.create_database()
@@ -47,4 +49,10 @@ async def create_image(
         user: _schemas.User = _fastapi.Depends(_services.get_current_user),
         db: _orm.Session = _fastapi.Depends(_services.get_db)
 ):
+    inpt = image.image_text
+    img = pagan.Avatar(inpt, pagan.SHA512)
+    outpath = 'images/'
+    filename = inpt
+    img.save(outpath, filename)
+    img.change('new input', pagan.SHA256)
     return await _services.create_image(user=user, db=db, image=image)
