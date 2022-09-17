@@ -1,11 +1,11 @@
-Описание:
+Description:
 
-Веб-сервер предназначен для авторизации пользователя по API, авторизованные 
-пользователи могут создать модель Image
-(Не закончено: генерация изображения, тесты, Nginx)
+The web server is designed to authorize the user via API, authorized
+use create model Image
+(Not finished: image generation, tests, Nginx)
 
 
-Стек:
+Stack:
 
     Python 
     FastAPI 
@@ -17,32 +17,32 @@
     python-multipart
 
 
-Старт: 
-
-Первый шаг сколнировать репозитрий
+Start: 
+First step clone the repository
 
     git clone https://github.com/Nurmanbetov/FastAPI_AUTH.git
-Создать инвайромент для библеотек
- 
+
+Create an environment for libraries
+
     python3 -m venv venv
 
-Активировать инвайромент
+Activate the environment
 
     source venv/bin/activate
 
-Установить все библеотеки с папки req.txt
+Install all libraries from req.txt folder
 
     pip install -r req.txt
 
-Создать образ
+Create an image
 
     docker-compose build
 
-Запустить контейнер
+Run container
 
     docker-compose up
 
-Перейти по адресу
+Go to address
 
     http://127.0.0.1:8000/docs
 
